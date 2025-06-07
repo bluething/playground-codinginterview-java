@@ -3,6 +3,9 @@ package io.github.bluething.playground.codinginterview.java.leetcode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 class _20_validParenthesesTest {
     @Test
     void case01() {
@@ -30,6 +33,25 @@ class _20_validParenthesesTest {
     }
 
     private boolean isValid(String s) {
-        return false;
+        char[] stack = new char[s.length()];
+        char[] pairs = new char[128];
+        pairs[')'] = '(';
+        pairs['}'] = '{';
+        pairs[']'] = '[';
+        int idx = 0;
+        for (char c : s.toCharArray()) {
+            if (pairs[c] == 0) {
+                stack[idx++] = c;
+            } else {
+                if (idx == 0) {
+                    return false;
+                }
+                if (pairs[c] != stack[idx - 1]) {
+                    return false;
+                }
+                idx--;
+            }
+        }
+        return idx == 0;
     }
 }

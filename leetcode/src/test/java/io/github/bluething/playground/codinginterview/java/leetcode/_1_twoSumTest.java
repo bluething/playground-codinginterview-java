@@ -3,6 +3,11 @@ package io.github.bluething.playground.codinginterview.java.leetcode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 class _1_twoSumTest {
     @Test
     public void case01() {
@@ -23,6 +28,14 @@ class _1_twoSumTest {
     }
 
     private int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> complements = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int complement = target - nums[i];
+            if (complements.containsKey(complement)) {
+                return new int[]{complements.get(complement), i};
+            }
+            complements.put(nums[i], i);
+        }
         return new int[]{};
     }
 }

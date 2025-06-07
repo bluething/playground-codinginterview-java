@@ -28,7 +28,7 @@ class _155_minStackTest {
             if (top == null) {
                 top = new Node(val, val, null);
             } else {
-                top = new Node(val, Math.min(top.min, val), top);
+                top = new Node(val, Math.min(val, top.min), top);
             }
         }
 

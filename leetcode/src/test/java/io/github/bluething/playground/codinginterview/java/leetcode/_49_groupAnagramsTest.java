@@ -3,9 +3,7 @@ package io.github.bluething.playground.codinginterview.java.leetcode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 class _49_groupAnagramsTest {
     @Test
@@ -29,6 +27,16 @@ class _49_groupAnagramsTest {
     }
 
     private List<List<String>> groupAnagrams(String[] strs) {
-        return Collections.emptyList();
+        int[] frequencies = new int[26];
+        Map<String, List<String>> frequenciesMap = new HashMap<>();
+        for (String str : strs) {
+            Arrays.fill(frequencies, 0);
+            for (char c : str.toCharArray()) {
+                frequencies[c - 'a']++;
+            }
+            String key = Arrays.toString(frequencies);
+            frequenciesMap.computeIfAbsent(key, k -> new ArrayList<>()).add(str);
+        }
+        return new ArrayList<>(frequenciesMap.values());
     }
 }
