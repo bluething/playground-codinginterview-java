@@ -14,6 +14,18 @@ class _42_trappingRainWaterTest {
     }
 
     private int trap(int[] height) {
-        return 0;
+        int[] left = new int[height.length];
+        for (int i = 0; i < height.length; i++) {
+            left[i] = i == 0 ? height[i] : Math.max(height[i], left[i - 1]);
+        }
+        int[] right = new int[height.length];
+        for (int i = height.length - 1; i >= 0; i--) {
+            right[i] = i == height.length - 1 ? height[i] : Math.max(height[i], right[i + 1]);
+        }
+        int sum = 0;
+        for (int i = 0; i < height.length; i++) {
+            sum += Math.min(left[i], right[i]) - height[i];
+        }
+        return sum;
     }
 }

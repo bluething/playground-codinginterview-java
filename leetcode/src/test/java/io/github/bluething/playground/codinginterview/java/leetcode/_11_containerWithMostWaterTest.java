@@ -25,6 +25,17 @@ class _11_containerWithMostWaterTest {
     }
 
     private int maxArea(int[] height) {
-        return 0;
+        int left = 0, right = height.length - 1;
+        int maxArea = 0;
+        while (left < right) {
+            if (height[left] < height[right]) {
+                maxArea = Math.max(maxArea, height[left] * (right - left));
+                left++;
+            } else {
+                maxArea = Math.max(maxArea, height[right] * (right - left));
+                right--;
+            }
+        }
+        return maxArea;
     }
 }

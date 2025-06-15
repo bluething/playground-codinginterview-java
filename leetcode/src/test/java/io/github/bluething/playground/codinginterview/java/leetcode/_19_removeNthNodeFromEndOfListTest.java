@@ -45,7 +45,20 @@ class _19_removeNthNodeFromEndOfListTest extends _00_ParentTest{
     }
 
     private ListNode removeNthFromEnd(ListNode head, int n) {
-        return null;
+        ListNode dummyHead = new ListNode(0, head);
+        ListNode left = dummyHead;
+        ListNode right = head;
+        while (n > 0) {
+            right = right.next;
+            n--;
+        }
+        while (right != null) {
+            left = left.next;
+            right = right.next;
+        }
+        // remove the node
+        left.next = left.next.next;
+        return dummyHead.next;
     }
 
     class ListNode {
