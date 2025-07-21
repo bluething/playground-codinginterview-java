@@ -12,7 +12,7 @@ class GridChallengeTest {
         Assertions.assertEquals("YES", gridChallenge(List.of("ebacd", "fghij", "olmkn", "trpqs", "xywuv")));
     }
     private String gridChallenge(List<String> grid) {
-        
+
         return "YES";
     }
 }
