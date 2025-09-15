@@ -90,7 +90,7 @@ class _104_MaximumDepthOfBinaryTreeTest extends _01_ParentTreeTest {
         Stack<Integer> counters = new Stack<>();
         counters.push(1);
         int counter = 0;
-        
+
         while (!nodes.isEmpty()) {
             TreeNode current = nodes.pop();
             counter = counters.pop();
