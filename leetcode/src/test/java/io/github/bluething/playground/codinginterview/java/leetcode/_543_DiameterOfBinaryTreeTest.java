@@ -40,6 +40,24 @@ class _543_DiameterOfBinaryTreeTest extends _01_ParentTreeTest {
     }
 
     private int diameterOfBinaryTree(TreeNode root) {
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+        int[] diameter = new int[1];
+        height(root, diameter);
+
+        return diameter[0];
+    }
+    private int height(TreeNode root, int[] diameter) {
+        if (root == null) {
+            return -1;
+        }
+
+        int leftHeight = height(root.left, diameter);
+        int rightHeight = height(root.right, diameter);
+
+        diameter[0] = Math.max(diameter[0], leftHeight + rightHeight + 2);
+
+        return 1 + Math.max(leftHeight, rightHeight);
     }
 }
