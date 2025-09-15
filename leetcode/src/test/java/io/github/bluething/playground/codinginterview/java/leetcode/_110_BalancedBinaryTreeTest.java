@@ -36,6 +36,23 @@ class _110_BalancedBinaryTreeTest extends _01_ParentTreeTest {
     }
 
     private boolean isBalanced(TreeNode root) {
-        return false;
+        return -1 != height(root);
+    }
+
+    private int height(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+
+        if (-1 == leftHeight ||
+                -1 == rightHeight ||
+                Math.abs(leftHeight - rightHeight) > 1) {
+            return -1;
+        }
+
+        return 1 + Math.max(leftHeight, rightHeight);
     }
 }
