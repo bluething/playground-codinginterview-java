@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class _527_SubtreeofAnotherTreeTest {
+class _572_SubtreeofAnotherTreeTest {
 
     @Test
     void case01() {
@@ -57,6 +57,22 @@ class _527_SubtreeofAnotherTreeTest {
     }
 
     private boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        return false;
+        if (root == null) {
+            return false;
+        }
+
+        return isSameTree(root, subRoot) ||
+                isSubtree(root.left, subRoot) ||
+                isSubtree(root.right, subRoot);
+    }
+    private boolean isSameTree(TreeNode root1, TreeNode root2) {
+        if (root1 == null && root2 == null) {
+            return true;
+        }
+        if (root1 == null || root2 == null || root1.value != root2.value) {
+            return false;
+        }
+
+        return isSameTree(root1.left, root2.left) && isSameTree(root1.right, root2.right);
     }
 }
