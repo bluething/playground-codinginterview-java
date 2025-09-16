@@ -1,5 +1,9 @@
 package io.github.bluething.playground.codinginterview.java.leetcode;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 abstract class _01_ParentTreeTest {
     // Helper method to compare two binary trees
     boolean areTreesEqual(TreeNode tree1, TreeNode tree2) {
@@ -32,5 +36,14 @@ abstract class _01_ParentTreeTest {
             return -1;
         }
         return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    // Helper method to compare double values with tolerance
+    void assertDoubleListEquals(List<Double> expected, List<Double> actual) {
+        assertEquals(expected.size(), actual.size());
+        for (int i = 0; i < expected.size(); i++) {
+            assertEquals(expected.get(i), actual.get(i), 0.00001,
+                    "Mismatch at index " + i + ": expected " + expected.get(i) + " but got " + actual.get(i));
+        }
     }
 }
