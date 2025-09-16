@@ -2,9 +2,7 @@ package io.github.bluething.playground.codinginterview.java.leetcode;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -61,6 +59,29 @@ public class _102_BinaryTreeLevelOrderTraversalTest {
     }
 
     private List<List<Integer>> levelOrder(TreeNode root) {
-        return null;
+        if (root == null) {
+            return Collections.emptyList();
+        }
+
+        List<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> values = new ArrayList<>(size);
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                values.add(node.value);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+            result.add(values);
+        }
+        return result;
     }
 }
