@@ -1,7 +1,7 @@
 package io.github.bluething.playground.codinginterview.java.leetcode;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -82,6 +82,32 @@ class _199_BinaryTreeRightSideViewTest {
     }
 
     private List<Integer> rightSideView(TreeNode root) {
-        return null;
+        if (root == null) {
+            return List.of();
+        }
+
+        List<Integer> rightMostNodes = new ArrayList<>();
+        Queue<TreeNode> queue = new ArrayDeque<>();
+        queue.offer(root);
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+
+                if (i == size - 1) {
+                    rightMostNodes.add(node.value);
+                }
+
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+        }
+        return rightMostNodes;
     }
 }
