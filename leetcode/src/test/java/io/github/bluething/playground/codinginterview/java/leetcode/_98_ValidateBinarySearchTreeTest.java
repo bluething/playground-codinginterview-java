@@ -124,6 +124,17 @@ class _98_ValidateBinarySearchTreeTest {
     }
 
     private boolean isValidBST(TreeNode root) {
-        return false;
+        return dfs(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+    private boolean dfs(TreeNode node, long minVal, long maxVal) {
+        if (node == null) {
+            return true;
+        }
+
+        if (node.value <= minVal || node.value >= maxVal) {
+            return false;
+        }
+
+        return dfs(node.left, minVal, node.value) && dfs(node.right, node.value, maxVal);
     }
 }
