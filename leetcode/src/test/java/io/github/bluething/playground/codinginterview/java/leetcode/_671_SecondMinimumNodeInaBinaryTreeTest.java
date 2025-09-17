@@ -261,7 +261,7 @@ class _671_SecondMinimumNodeInaBinaryTreeTest {
         assertEquals(expected, result);
     }
 
-    private int secondMinimumValue = Integer.MAX_VALUE;
+    private Integer secondMinimumValue = null;
     private int findSecondMinimumValue(TreeNode root) {
         if (root == null) {
             return -1;
@@ -269,7 +269,7 @@ class _671_SecondMinimumNodeInaBinaryTreeTest {
         int minValue = root.value;
         dfs(root, minValue);
 
-        return secondMinimumValue == Integer.MAX_VALUE ? -1 : secondMinimumValue;
+        return secondMinimumValue == null ? -1 : secondMinimumValue;
     }
     private void dfs(TreeNode node, int minValue) {
         if (node == null) {
@@ -277,8 +277,10 @@ class _671_SecondMinimumNodeInaBinaryTreeTest {
         }
 
         // If we found a value greater than min but less than current secondMin
-        if (node.value > minValue && node.value < secondMinimumValue) {
-            secondMinimumValue = node.value;
+        if (node.value > minValue) {
+            if (secondMinimumValue == null || node.value < secondMinimumValue) {
+                secondMinimumValue = node.value;
+            }
         }
 
         dfs(node.left, minValue);
