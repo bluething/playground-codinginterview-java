@@ -1,5 +1,6 @@
 package io.github.bluething.playground.codinginterview.java.leetcode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,5 +46,99 @@ abstract class _01_ParentTreeTest {
             assertEquals(expected.get(i), actual.get(i), 0.00001,
                     "Mismatch at index " + i + ": expected " + expected.get(i) + " but got " + actual.get(i));
         }
+    }
+
+    // Helper method to get inorder traversal for comparison
+   List<Integer> getInorder(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        inorderTraversal(root, result);
+        return result;
+    }
+
+    // Helper method to check if a tree is balanced
+    private boolean isBalanced(TreeNode root) {
+        return checkBalance(root) != -1;
+    }
+
+    private int checkBalance(TreeNode node) {
+        if (node == null) return 0;
+
+        int leftHeight = checkBalance(node.left);
+        if (leftHeight == -1) return -1;
+
+        int rightHeight = checkBalance(node.right);
+        if (rightHeight == -1) return -1;
+
+        if (Math.abs(leftHeight - rightHeight) > 1) return -1;
+
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    // Helper method to verify BST property
+    private boolean isBST(TreeNode root) {
+        return isBSTHelper(root, null, null);
+    }
+
+    private boolean isBSTHelper(TreeNode node, Integer min, Integer max) {
+        if (node == null) return true;
+
+        if ((min != null && node.value <= min) || (max != null && node.value >= max)) {
+            return false;
+        }
+
+        return isBSTHelper(node.left, min, node.value) &&
+                isBSTHelper(node.right, node.value, max);
+    }
+
+    private void inorderTraversal(TreeNode node, List<Integer> values) {
+        if (node == null) return;
+
+        inorderTraversal(node.left, values);
+        values.add(node.value);
+        inorderTraversal(node.right, values);
+    }
+
+    // Helper method to get preorder traversal for verification
+    List<Integer> getPreorder(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        preorderTraversal(root, result);
+        return result;
+    }
+
+    void preorderTraversal(TreeNode node, List<Integer> result) {
+        if (node == null) return;
+        result.add(node.value);
+        preorderTraversal(node.left, result);
+        preorderTraversal(node.right, result);
+    }
+
+    private List<Integer> mergeSortedLists(List<Integer> list1, List<Integer> list2) {
+        List<Integer> merged = new ArrayList<>();
+        int i = 0, j = 0;
+
+        // Merge two sorted lists using two pointers
+        while (i < list1.size() && j < list2.size()) {
+            if (list1.get(i) <= list2.get(j)) {
+                merged.add(list1.get(i));
+                i++;
+            } else {
+                merged.add(list2.get(j));
+                j++;
+            }
+        }
+
+        // Add remaining elements from list1
+        while (i < list1.size()) {
+            merged.add(list1.get(i));
+            i++;
+        }
+
+        // Add remaining elements from list2
+        while (j < list2.size()) {
+            merged.add(list2.get(j));
+            j++;
+        }
+
+        return merged;
     }
 }
