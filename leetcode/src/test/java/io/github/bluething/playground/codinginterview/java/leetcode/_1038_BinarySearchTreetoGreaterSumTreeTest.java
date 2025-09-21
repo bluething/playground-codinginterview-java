@@ -114,7 +114,17 @@ class _1038_BinarySearchTreetoGreaterSumTreeTest {
         inorderHelper(node.right, result);
     }
 
+    int sum = 0;
     private TreeNode bstToGst(TreeNode root) {
-        return null;
+        reverseInOrder(root);
+        return root;
+    }
+    private void reverseInOrder(TreeNode node) {
+        if (node == null) return;
+
+        reverseInOrder(node.right);
+        sum += node.value;
+        node.value = sum;
+        reverseInOrder(node.left);
     }
 }
