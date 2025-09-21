@@ -153,6 +153,21 @@ class _938_RangeSumofBSTTest {
     }
 
     private int rangeSumBST(TreeNode root, int low, int high) {
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+
+        int sum = 0;
+        if (low <= root.value && high >= root.value) {
+            sum += root.value;
+        }
+        if (root.value > low) {
+            sum += rangeSumBST(root.left, low, high);
+        }
+        if (root.value < high) {
+            sum += rangeSumBST(root.right, low, high);
+        }
+
+        return sum;
     }
 }
