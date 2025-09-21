@@ -277,6 +277,18 @@ class _700_SearchinaBinarySearchTreeTest extends _01_ParentTreeTest {
     }
 
     private TreeNode searchBST(TreeNode root, int val) {
-        return null;
+        if (root == null) {
+            return null;
+        }
+
+        if (root.value == val) {
+            return root;
+        }
+
+        if (root.value > val) {
+            return searchBST(root.left, val);
+        } else {
+            return searchBST(root.right, val);
+        }
     }
 }
