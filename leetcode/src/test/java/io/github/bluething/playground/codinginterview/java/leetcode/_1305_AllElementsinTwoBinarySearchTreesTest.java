@@ -2,6 +2,7 @@ package io.github.bluething.playground.codinginterview.java.leetcode;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -259,7 +260,43 @@ class _1305_AllElementsinTwoBinarySearchTreesTest extends _01_ParentTreeTest {
         }
     }
 
+    List<Integer> list1;
+    List<Integer> list2;
     private List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
-        return List.of();
+        list1 = new ArrayList<>();
+        list2 = new ArrayList<>();
+
+        inOrderTraversal(root1, list1);
+        inOrderTraversal(root2, list2);
+
+        List<Integer> result = new ArrayList<>();
+        int i=0, j=0;
+        while (i < list1.size() && j < list2.size()) {
+            if (list1.get(i) <= list2.get(j)) {
+                result.add(list1.get(i));
+                i++;
+            } else {
+                result.add(list2.get(j));
+                j++;
+            }
+        }
+        while (i < list1.size()) {
+            result.add(list1.get(i));
+            i++;
+        }
+        while (j < list2.size()) {
+            result.add(list2.get(j));
+            j++;
+        }
+        return result;
+    }
+    private void inOrderTraversal(TreeNode root, List<Integer> list) {
+        if (root == null) {
+            return;
+        }
+
+        inOrderTraversal(root.left, list);
+        list.add(root.value);
+        inOrderTraversal(root.right, list);
     }
 }
