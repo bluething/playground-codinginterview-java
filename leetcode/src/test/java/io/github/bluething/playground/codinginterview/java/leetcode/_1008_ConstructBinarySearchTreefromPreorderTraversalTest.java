@@ -195,7 +195,6 @@ class _1008_ConstructBinarySearchTreefromPreorderTraversalTest extends _01_Paren
         assertNull(result.right);
     }
 
-    @Test
     void case10() {
         // Large values: preorder = [1000,500,2000,250,750,1500,2500]
         int[] preorder = {1000, 500, 2000, 250, 750, 1500, 2500};
@@ -239,7 +238,29 @@ class _1008_ConstructBinarySearchTreefromPreorderTraversalTest extends _01_Paren
         assertEquals(expectedInorder, inorderResult);
     }
 
+    int idx = 0;
     private TreeNode bstFromPreorder(int[] preorder) {
-        return null;
+        if (preorder == null || preorder.length == 0) {
+            return null;
+        }
+        idx = 0;
+        return buildBST(Integer.MIN_VALUE, Integer.MAX_VALUE, preorder);
+    }
+    private TreeNode buildBST(int minVal, int maxVal, int[] preorder) {
+        if (idx >= preorder.length) {
+            return null;
+        }
+
+        int val = preorder[idx];
+        if (val <= minVal || val >= maxVal) {
+            return null;
+        }
+        idx++;
+        TreeNode node = new TreeNode(val);
+
+        node.left = buildBST(minVal, val, preorder);
+        node.right = buildBST(val, maxVal, preorder);
+
+        return node;
     }
 }
