@@ -2,6 +2,7 @@ package io.github.bluething.playground.codinginterview.java.leetcode;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -210,7 +211,32 @@ class _1382_BalanceaBinarySearchTreeTest extends _01_ParentTreeTest {
         assertNull(result);
     }
 
+    List<Integer> sortedNodes = new ArrayList<>();
     private TreeNode balanceBST(TreeNode root) {
-        return null;
+        inOrder(root);
+        return buildBalancedBST(sortedNodes, 0, sortedNodes.size() - 1);
+    }
+    private void inOrder(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        inOrder(node.left);
+        sortedNodes.add(node.value);
+        inOrder(node.right);
+    }
+
+    private TreeNode buildBalancedBST(List<Integer> nodes, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+
+        int mid = start + (end - start) / 2;
+        TreeNode node = new TreeNode(nodes.get(mid));
+
+        node.left = buildBalancedBST(nodes, start, mid - 1);
+        node.right = buildBalancedBST(nodes, mid + 1, end);
+
+        return node;
     }
 }
