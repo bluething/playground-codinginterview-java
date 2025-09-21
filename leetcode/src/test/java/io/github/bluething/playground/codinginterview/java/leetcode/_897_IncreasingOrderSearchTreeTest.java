@@ -308,7 +308,23 @@ class _897_IncreasingOrderSearchTreeTest extends _01_ParentTreeTest {
         return values;
     }
 
+    TreeNode dummy;
+    TreeNode current;
     private TreeNode increasingBST(TreeNode root) {
-        return null;
+        dummy = new TreeNode(0);
+        current = dummy;
+        inOrder(root);
+        return dummy.right;
+    }
+    private void inOrder(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        inOrder(node.left);
+        node.left = null;
+        current.right = node;
+        current = node;
+        inOrder(node.right);
     }
 }
